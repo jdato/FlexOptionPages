@@ -350,7 +350,7 @@ class RationalOptionPages {
 					settings_fields( $page_key );
 					do_settings_sections( $page['menu_slug'] );
 					if ( $this->has_fields( $page ) ) {
-						submit_button();
+						submit_button(null, "primary drflex-submit");
 					}
 				?></form><?php
 			}
@@ -488,19 +488,22 @@ class RationalOptionPages {
 				}
 				echo '</select>';
 				break;
-			case 'textarea':
-				printf(
-					'<textarea %s id="%s" name="%s" %s %s title="%s">%s</textarea>%s',
-					!empty( $field['class'] ) ? "class='{$field['class']}'" : '',						// class
-					$field['id'],																		// id
-					"{$page_key}[{$field['id']}]",														// name
-					!empty( $field['placeholder'] ) ? "placeholder='{$field['placeholder']}'" : '',		// placeholder
-					!empty( $field['rows'] ) ? "rows='{$field['rows']}'" : '',							// rows
-					$field['title_attr'],																// title
-					$field['value'],																	// value
-					!empty( $field['text'] ) ? "<p class='help'>{$field['text']}</p>" : ''				// text
-				);
-				break;
+		case 'textarea':
+			printf(
+				'<textarea %s id="%s" name="%s" %s %s %s %s %s title="%s">%s</textarea>%s',
+				!empty( $field['class'] ) ? "class='{$field['class']}'" : '',						// class
+				$field['id'],																		// id
+				"{$page_key}[{$field['id']}]",														// name
+				!empty( $field['placeholder'] ) ? "placeholder='{$field['placeholder']}'" : '',		// placeholder
+				!empty( $field['rows'] ) ? "rows='{$field['rows']}'" : '',							// rows
+				!empty( $field['cols'] ) ? "cols='{$field['cols']}'" : '',							// cols
+				!empty( $field['wrap'] ) ? "wrap='{$field['wrap']}'" : '',							// wrap
+				!empty( $field['customStyle'] ) ? "style='{$field['customStyle']}'" : '',			// custom style
+				$field['title_attr'],																// title
+				$field['value'],																	// value
+				!empty( $field['text'] ) ? "<p class='help'>{$field['text']}</p>" : ''				// text
+			);
+			break;
 			case 'wp_editor':
 				$field['textarea_name'] = "{$page_key}[{$field['id']}]";
 				wp_editor( $field['value'], $field['id'], array(
